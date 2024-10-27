@@ -1,4 +1,4 @@
-# React Utils
+# @sharpio-react-utils
 
 A collection of React hooks to simplify your applications.
 
@@ -68,4 +68,3 @@ const LocalStorageExample: React.FC = () => {
 ```
 
 
-# sharpio-react-utils
