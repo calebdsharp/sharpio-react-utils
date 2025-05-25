@@ -6,12 +6,16 @@ export const useLocalStorage = <T>(
 ): [T, (value: T) => void, () => void] => {
   const [storedValue, setStoredValue] = useState<T>(() => {
     try {
-      const item = window.localStorage.getItem(key);
-      return item ? JSON.parse(item) : initialValue;
+      if (typeof window !== "undefined") {
+        const item = window.localStorage.getItem(key);
+        if (!item) return initialValue;
+        const parsed = JSON.parse(item);
+        return parsed ?? initialValue;
+      }
     } catch (error) {
-      console.error("Error reading from localStorage:", error);
-      return initialValue;
+      console.error("Invalid JSON in localStorage:", error);
     }
+    return initialValue;
   });
 
   const setValue = (value: T) => {
